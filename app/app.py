@@ -5,6 +5,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 
 from app.core.config import settings
 from app.models.user_model import User
+from app.models.todo_model import Todo
 from app.api.v1 import router
 
 @asynccontextmanager
@@ -16,7 +17,8 @@ async def lifespan(app: FastAPI):
     await init_beanie(
         database=db_client,
         document_models= [
-            User
+            User,
+            Todo
         ]
     )
 

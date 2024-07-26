@@ -23,7 +23,7 @@ async def get_current_user(token: str = Depends(reuseable_oauth)) -> User:
         )
         token_data = TokenPayload(**payload)
 
-        print(f"token_data.exp = {datetime.fromtimestamp(int(token_data.exp))}, ---{datetime.now()}")
+        # print(f"token_data.exp = {datetime.fromtimestamp(int(token_data.exp))}, ---{datetime.now()}")
 
         if datetime.fromtimestamp(int(token_data.exp)) < datetime.now():
             raise HTTPException(
@@ -39,7 +39,7 @@ async def get_current_user(token: str = Depends(reuseable_oauth)) -> User:
                 headers={"WWW-Authenticate": "Bearer"}
             )
     
-    print(f"-----token_data.sub = {token_data.sub}, {type(token_data.sub)}")
+    # print(f"-----token_data.sub = {token_data.sub}, {type(token_data.sub)}")
     # user = await UserService.get_user_by_id(token_data.sub)
     user = await User.find_one(User.user_id == token_data.sub)
     if not user:
